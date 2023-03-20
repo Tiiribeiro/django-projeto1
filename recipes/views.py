@@ -1,21 +1,16 @@
 from django.shortcuts import render
 
-# Create your views here.
+from utils.recipes.factory import make_recipe
 
 
 def home(request):
-    return render(request, 'recipes/pages/index.html', context={
-        'name': 'Luiz Otávio',
+    return render(request, 'recipes/pages/home.html', context={
+        'recipes': [make_recipe() for _ in range(9)],
     })
 
 
 def recipe(request, id):
     return render(request, 'recipes/pages/recipe.html', context={
-        'name': 'Luiz Otávio',
-    })
-
-
-def base(request):
-    return render(request, 'global/base.html', context={
-        'name': 'Luiz Otávio',
+        'recipe': make_recipe(),
+        'is_detail_page': True,
     })
